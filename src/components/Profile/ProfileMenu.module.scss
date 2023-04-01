@@ -1,0 +1,10 @@
+.menuItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--grey);
+    font-family: var(--montserrat);
+}
+.menuItem div {
+    width: 30px;
+}

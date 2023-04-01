@@ -17,6 +17,8 @@ import * as React from 'react';
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useAuth } from '@src/context/AuthContext'
+import Profile from '@src/pages/profile'
+import ProfileMenu from '@components/Profile/ProfileMenu'
 export default function Header (){
     const {token} = useAuth()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -39,7 +41,7 @@ export default function Header (){
             </Link>
             {
                 token ? 
-               <div> im in</div> : <>
+                <ProfileMenu/> : <>
                <div className={styles.rightSide}>
             
                 <button className="btnBlue" onClick= {()=>router.push('/login')} > Войти</button>

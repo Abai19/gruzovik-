@@ -24,23 +24,19 @@ type Props = {
 };
 
 export function AuthProvider({ children }: Props) {
-    const [token, setToken] = useState<string| null>( ""
-    //   () => {
-    //   if (typeof window !== 'undefined') {
-    //     const value = window.localStorage.getItem('token');
-    //     return value !== null ? value : '';
-    //   } else {
-    //     return '';
-    //   }
-    // }
-    );
-    // useEffect(() => {
-    //   localStorage.setItem('token', token !== null ? token : "");
-    // }, [token]);
+
+    const [token, setToken] = useState<string| null>( "");
     const login = (token: string) => {
       setToken(token);
       localStorage.setItem("token", token)
     };
+    useEffect(() => {
+        const storedToken = localStorage.getItem('token');
+    
+        if (storedToken) {
+          setToken(storedToken);
+        }
+      }, []);
 
     const logout = () => {
         setToken(null);
