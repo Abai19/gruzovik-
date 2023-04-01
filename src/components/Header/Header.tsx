@@ -16,7 +16,9 @@ import * as React from 'react';
 
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import { useAuth } from '@src/context/AuthContext'
 export default function Header (){
+    const {token} = useAuth()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -35,8 +37,11 @@ export default function Header (){
             <Link href={'/'} className={styles.logo}>
                 <Image  src={logo} alt="logo" />
             </Link>
-            <div className={styles.rightSide}>
-                {/* <p>EN | RU</p> */}
+            {
+                token ? 
+               <div> im in</div> : <>
+               <div className={styles.rightSide}>
+            
                 <button className="btnBlue" onClick= {()=>router.push('/login')} > Войти</button>
                 <button className="btnBlue" onClick= {()=>router.push('/registration')}> Зарегистрироваться</button>
             
@@ -73,14 +78,18 @@ export default function Header (){
                     
                 </Menu>
             </div>
-                {
-                    show && <div className={styles.mobileMenuBlock}>
+                
+                   { show &&  <div className={styles.mobileMenuBlock}>
                         <div>
                             <button className="btnBlue"> Войти</button>
                             <button className="btnBlue"> Зарегистрироваться</button>
                         </div>
                     </div>
-                }
+}                   
+                    </>
+
+            }
+            
            
         </div>
     )

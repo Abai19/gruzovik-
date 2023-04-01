@@ -2,7 +2,51 @@ import Link from "next/link";
 import TextField from "@mui/material/TextField";
 import cn from 'classnames'
 import styles from './Login.module.scss'
+import { useAuth } from "@src/context/AuthContext";
+import { useEffect, useState } from "react";
+import { ILog } from "@src/types/types";
+import { Auth } from "@src/api/api";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
+
 export default function Login() {
+    const router = useRouter()
+    const { token, login, logout } = useAuth();
+    useEffect(()=>{
+        if(token) {
+            router.push('/')
+        }
+    },[token])
+    const [data, setData] = useState<ILog>({
+        email: "",
+        password: ""
+    })
+    async function handleSubmit () {
+        try {
+            const  response = await Auth(data);
+            if(axios.isAxiosError(response)){
+                if(response.response){
+                    toast.error(response.response.data.message)
+                }
+                else {
+                    toast.error(response.message)
+                }
+            }
+            else {
+                toast.success('Добро пожаловать!')
+                login(response)
+                router.push('/')
+            }
+          
+        }
+        catch{
+
+        }
+
+    
+
+    }
     return (
         <div className={cn("mainReg", styles.loginBlock)}>
             <p className={styles.desc}>
@@ -17,6 +61,7 @@ export default function Login() {
                     type="email"
                     id="outlined-size-small"
                     size="small"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>)=> setData({...data, email: e.target.value})}
                 />
             </div>
             <div>
@@ -28,10 +73,11 @@ export default function Login() {
                     type="password"
                     id="outlined-size-small"
                     size="small"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>)=> setData({...data, password: e.target.value})}
                 />
                 <p className={styles.reg}>Нет аккаунта? <Link href="/registration"> зарегистрироваться</Link></p>
             </div>
-            <button className="btnBlue">Войти</button>
+            <button className="btnBlue" onClick={handleSubmit}>Войти</button>
 
         </div>
 
