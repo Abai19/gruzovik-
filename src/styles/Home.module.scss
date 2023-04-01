@@ -1,0 +1,28 @@
+
+.navBlock {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  gap: 20px;
+}
+.navBlock > div {
+  display: flex;
+  gap:5px;
+  @media (max-width: 920px) {
+    &:not(:first-child){
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+
+}
+
+.navItems {
+  cursor: pointer;
+  padding: 15px;
+}
+.active {
+  color: var(--blue);
+  border-bottom: 3px solid var(--blue);
+}

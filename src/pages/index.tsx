@@ -1,21 +1,22 @@
 import Head from 'next/head'
-import styles from '@src/styles/Home.module.css'
+import styles from '@src/styles/Home.module.scss'
 import Header from '@components/Header/Header'
+import dayjs from 'dayjs';
 
 import RootLayout from './layout'
 import Cargo from '@components/Cargo/Cargo'
-import TextField from '@mui/material/TextField'
+import cn from 'classnames'
+import { useState } from 'react';
+import Vehicle from '@components/Vehicle/Vehicle';
 
-export async function getServerSideProps() {
-  // Fetch data from external API
-  const res = await fetch(`https://cargo-transportation.onrender.com/cargo/getList?city=&startDate=&endDate=&page=1&limit=10`)
-  const data = await res.json()
+// export async function getServerSideProps() {
+//   const res = await fetch(`https://cargo-transportation.onrender.com/cargo/getList?city=&startDate=&endDate=&page=1&limit=10`)
+//   const data = await res.json()
+//   return { props: { data } }
+// }
+export default function Home({ data }: any) {
+  const [show, setShow] = useState(true)
 
-  // Pass data to the page via props
-  return { props: { data } }
-}
-export default function Home({data} :any) {
-  console.log(data)
   return (
     <>
       <Head>
@@ -25,37 +26,39 @@ export default function Home({data} :any) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main >
-          {/* <Header/> */}
-          <div className={styles.main}>
+        {/* <Header/> */}
+        <div className="main">
+          <div className={styles.navBlock}>
             <div>
-              Грузы
+              <div className={cn( styles.navItems,{
+                  [styles.active]: show
+                })} onClick={()=>setShow(true)}>Грузы</div>
+                <div className={cn( styles.navItems,{
+                  [styles.active]: !show
+                })} onClick={()=>setShow(false)}>Транспорт</div>
             </div>
-            <div>
-                Транспорт
-            </div>
-            <Cargo/>
-            <TextField
+              
+
+              <div>
+                <button className='btnBlack'>Добавить груз</button>
+                <button className='btnBlack'>Добавить транспорт</button>
+              </div>
+           
+              {/* <Cargo /> */}
+          </div>
+             {
+              show ? <Cargo/> : <Vehicle/>
+            }
           
-                placeholder='Откуда'
-                id="outlined-size-small"
-            
-                size="small"
-            />
-             <TextField
-          
-          placeholder='Куда'
-          id="outlined-size-small"
-          
-          size="small"
-      />
-          {data.cargos.map((item: any)=> ( <div>{item.id}</div>))}
-            {/* <RootLayout >
+        
+          {/* {data.cargos.map((item: any)=> ( <div>{item.id}</div>))} */}
+          {/* <RootLayout >
                 <div>
                   prikol
                 </div>
             </RootLayout> */}
-              
-          </div>
+
+        </div>
       </main>
     </>
   )

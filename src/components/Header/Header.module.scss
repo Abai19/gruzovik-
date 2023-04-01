@@ -1,24 +1,8 @@
-.btnSignIn {
-    background-color: var(--blue);
-    border-radius: 6px;
-    padding: 15px 46px;
-    color: var(--white);
-    font-size: 16px;
-    border: none;  
-    letter-spacing: 0.5px;
-    // font-family: var(--montserrat);
-    font-weight: 700;
-    line-height: 25px;
-    cursor: pointer;
-    &:hover {
-        background-color: var(--blue-hover)
-    }
-}
 .mainBlock {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 5%;
+    padding: 15px 5%;
     // padding-top: 10px;
     // padding-bottom: 10px;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
@@ -27,4 +11,34 @@
     display: flex;
     gap: 10px;
     align-items: center;
+    @media (max-width: 920px) {
+        & button {
+            display: none;
+        }
+    }
+}
+.logo {
+    display: flex;
+}
+.logo img {
+    max-width: 140px;
+    @media (max-width: 920px) {
+        max-width: 100px;
+    }
+}
+.burger {
+    display: none;
+    @media (max-width: 920px) {
+        display: block;
+    }
+}
+
+.mobileMenuBlock {
+     position: absolute;
+     width: 100%;
+    // height: 100%;
+}
+.mobileMenuBlock >div {
+    position: relative;
+    right: 10px;
 }

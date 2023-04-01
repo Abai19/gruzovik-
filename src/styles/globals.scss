@@ -1,0 +1,113 @@
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.main {
+  width: 90%;
+  margin: 0 auto;
+}
+.mainReg {
+  width: 90%;
+  margin: 0 auto;
+  @media (min-width: 920px) {
+    width: 30%;
+  }
+}
+.btnBlue { 
+  background-color: var(--blue);
+  border-radius: 6px;
+  padding: 15px 46px;
+  color: var(--white);
+  font-size: 16px;
+  border: none;  
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  // line-height: 25px;
+  cursor: pointer;
+  &:hover {
+      background-color: var(--blue-hover)
+  }
+  @media (max-width: 920px) {
+    padding: 10px 15px;
+    width: 100%;
+  }
+}
+.btnBlack {
+  background-color: var(--black);
+  border-radius: 6px;
+  padding: 10px 26px;
+  color: var(--white);
+  font-size: 14px;
+  border: none;  
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  // line-height: 25px;
+  cursor: pointer;
+  &:hover {
+      background-color: #40434b
+  }
+  @media (max-width: 920px) {
+    padding: 10px 15px;
+  }
+ 
+}
+
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+
+    --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
+    --secondary-glow: linear-gradient(
+      to bottom right,
+      rgba(1, 65, 255, 0),
+      rgba(1, 65, 255, 0),
+      rgba(1, 65, 255, 0.3)
+    );
+
+    --tile-start-rgb: 2, 13, 46;
+    --tile-end-rgb: 2, 5, 19;
+    --tile-border: conic-gradient(
+      #ffffff80,
+      #ffffff40,
+      #ffffff30,
+      #ffffff20,
+      #ffffff10,
+      #ffffff10,
+      #ffffff80
+    );
+
+    --callout-rgb: 20, 20, 20;
+    --callout-border-rgb: 108, 108, 108;
+    --card-rgb: 100, 100, 100;
+    --card-border-rgb: 200, 200, 200;
+  }
+}
+
+:root {
+  --max-width: 1100px;
+  --border-radius: 12px;
+  --blue: #0C4467;
+  --white: #FFFFFF;
+  --black: #2C2E34;
+  --grey: #989898;
+  --grey-light: #606060;
+  --blue-hover: #114f76;
+  --montserrat: 'Montserrat';
+
+}
+/* @media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+} */

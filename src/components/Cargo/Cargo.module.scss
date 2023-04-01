@@ -1,0 +1,51 @@
+.filterBlock {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 1rem;
+    @media (max-width: 920px) {
+        & {
+        //   width: 100%;
+        gap: 10px;
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+}
+.cargoItemBlock {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap:10px;
+    font-weight: 600;
+    border: 1px solid var(--grey);
+    border-radius:  7px;
+    padding: 1rem;
+    font-size: 12px;
+}
+.cargoItemLeft {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & div {
+        border-left: 1px dashed var(--black);
+        height: 4rem;
+    }
+}
+.cargoItemRight {
+    display: flex;
+    flex-direction: column;
+    gap: 5px
+}
+.cargoItemInfo {
+    display: flex;
+    gap:4px;
+}
+.title {
+    color: var(--blue);
+    font-size: 14px;
+}
+.cargoInfo {
+    display: flex;
+    justify-content: space-between;
+}
