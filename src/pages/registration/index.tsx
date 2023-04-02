@@ -1,7 +1,7 @@
 import Link from "next/link";
 import TextField from "@mui/material/TextField";
 import cn from 'classnames'
-import styles from './reg.module.scss'
+import styles from './Reg.module.scss'
 export default function Registration (){
     return (
         <div className={cn("mainReg", styles.loginBlock)}>
