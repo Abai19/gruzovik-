@@ -8,6 +8,7 @@ import Cargo from '@components/Cargo/Cargo'
 import cn from 'classnames'
 import { useState } from 'react';
 import Vehicle from '@components/Vehicle/Vehicle';
+import { useRouter } from 'next/router';
 
 // export async function getServerSideProps() {
 //   const res = await fetch(`https://cargo-transportation.onrender.com/cargo/getList?city=&startDate=&endDate=&page=1&limit=10`)
@@ -16,7 +17,7 @@ import Vehicle from '@components/Vehicle/Vehicle';
 // }
 export default function Home({ data }: any) {
   const [show, setShow] = useState(true)
-
+  const router = useRouter();
   return (
     <>
       <Head>
@@ -40,8 +41,8 @@ export default function Home({ data }: any) {
               
 
               <div>
-                <button className='btnBlack'>Добавить груз</button>
-                <button className='btnBlack'>Добавить транспорт</button>
+                <button className='btnBlack' onClick={()=> router.push('/addCargo')}>Добавить груз</button>
+                <button className='btnBlack' onClick={()=> router.push('/addCar')}>Добавить транспорт</button>
               </div>
            
               {/* <Cargo /> */}

@@ -15,11 +15,12 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import { useAuth } from '@src/context/AuthContext'
 import Tooltip from '@mui/material/Tooltip';
 import { useState } from 'react'
 import { useRouter } from 'next/router';
 export default function ProfileMenu() {
-
+    const {token, logout} = useAuth();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -85,7 +86,7 @@ export default function ProfileMenu() {
                     </div>
                 </MenuItem>
                 <MenuItem sx={{ backgroundColor: '#ffffff!important', '&:hover': { backgroundColor: 'rgba(65, 140, 187, 0.25)!important;' }, }} onClick={handleClose}>
-                    <div className={styles.menuItem} onClick={() => router.push('/login')}>
+                    <div className={styles.menuItem} onClick={() => logout()}>
                     <div>    <Image src={logoutIcon} alt={'profile'} /></div>  
                         <p>Выйти</p>
                     </div>

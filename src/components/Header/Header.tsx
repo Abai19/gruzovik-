@@ -20,7 +20,7 @@ import { useAuth } from '@src/context/AuthContext'
 import Profile from '@src/pages/profile'
 import ProfileMenu from '@components/Profile/ProfileMenu'
 export default function Header (){
-    const {token} = useAuth()
+    const {token} = useAuth();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
