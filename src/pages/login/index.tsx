@@ -8,7 +8,7 @@ import { ILog } from "@src/types/types";
 import { Auth } from "@src/api/api";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 
 export default function Login() {
     const router = useRouter()
@@ -17,7 +17,7 @@ export default function Login() {
         if(token) {
             router.push('/')
         }
-    },[token])
+    },[token, router])
     const [data, setData] = useState<ILog>({
         email: "",
         password: ""
