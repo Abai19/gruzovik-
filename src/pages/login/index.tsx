@@ -43,9 +43,6 @@ export default function Login() {
         catch{
 
         }
-
-    
-
     }
     return (
         <div className={cn("mainReg", styles.loginBlock)}>

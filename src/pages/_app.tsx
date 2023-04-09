@@ -8,7 +8,6 @@ import { Montserrat } from 'next/font/google'
 import { toast, ToastContainer } from 'react-toastify'
 const montserrat = Montserrat({ subsets: ['latin'], style: "normal", variable: "--montserrat", weight: "600" })
 export default function App({ Component, pageProps }: AppProps) {
-  // toast('21312')
   return (
     <AuthProvider>
       <ToastContainer/>
