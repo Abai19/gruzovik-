@@ -69,7 +69,7 @@ export default function Registration() {
             {
                 approve ? <>
                     <p className={styles.desc}>
-                    Введите код подтвержения, если код не пришел проверьте пожалуйста папку "Спам"
+                    Введите код подтвержения, если код не пришел проверьте пожалуйста папку &apos;Спам&apos;
                 </p>
                 <TextField
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setApproveTitle( e.target.value )}

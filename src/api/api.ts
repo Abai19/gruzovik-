@@ -1,6 +1,7 @@
-import { ILog, IReg, IToken } from "@src/types/types";
+import { ILog, IReg, IToken, addCarValues, addCargoValues } from "@src/types/types";
 import { API } from "@src/variables/variables";
 import axios from "axios";
+import exp from "constants";
 import { toast } from "react-toastify";
 
 export async function Auth (info: ILog) {
@@ -111,3 +112,52 @@ export async function ProfileInfo(token: string){
   }
 }
 
+export async function postCargo (token: string | null, info: addCargoValues) {
+  try {
+    const { data, status } = await axios.post<Promise<string>>(
+      API.cargo.create,
+      info,
+      {
+        headers: {
+            "Content-Type ": "application/json",
+            "AUTHORIZATION": `bearer ${token} `
+        },
+      }
+    )
+    console.log('response status is: ', status);
+    return data;
+  } 
+  catch (error) {
+    if (axios.isAxiosError(error)) {
+      return error
+    } else {
+      console.log('unexpected error: ', error);
+      return 'An unexpected error occurred';    
+    }
+  }
+}
+
+export async function postCar (token: string | null, info: addCarValues) {
+  try {
+    const { data, status } = await axios.post<Promise<string>>(
+      API.cars.create,
+      info,
+      {
+        headers: {
+            "Content-Type ": "application/json",
+            "AUTHORIZATION": `bearer ${token} `
+        },
+      }
+    )
+    console.log('response status is: ', status);
+    return data;
+  } 
+  catch (error) {
+    if (axios.isAxiosError(error)) {
+      return error
+    } else {
+      console.log('unexpected error: ', error);
+      return 'An unexpected error occurred';    
+    }
+  }
+}
