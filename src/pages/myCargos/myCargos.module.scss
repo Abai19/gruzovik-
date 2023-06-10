@@ -1,0 +1,14 @@
+.notFoundBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--blue)
+}
+.notFoundBlock > img {
+    margin: auto
+}
+.title {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: var(--blue)
+}

@@ -1,8 +1,9 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { ICar } from '@src/types/types';
+import { ICar, ICarItem } from '@src/types/types';
 import CarItem from '@components/CarItem/CarItem';
+import Contacts from '@components/Contacts/Contacts';
 
 export async function getServerSideProps() {
   const res = await fetch(`https://cargo-transportation.onrender.com/cars/getList?city=&startDate=&endDate=&page=1&limit=10`)
@@ -12,6 +13,11 @@ export async function getServerSideProps() {
 export default function Cars(data : ICar ) {
   console.log(data);
   const [show, setShow] = useState(true)
+
+  const [open, setOpen] = useState(false);
+  const [contactData, setContactData]= useState<Pick<ICarItem,'contacts'> | null>(null)
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const router = useRouter();
   return (
     <>
@@ -20,9 +26,14 @@ export default function Cars(data : ICar ) {
             cars
              {
               data.cars.map((car)=> (
-                    <CarItem key ={ car.id}{...car}/>
+                    <CarItem key ={ car.id} car={car} />
               ))
-            }
+              }
+              {
+              open && contactData && (
+                <Contacts open={open} handleClose={handleClose} contactData={contactData} />
+              )
+           }
         </div>
       </main>
     </>

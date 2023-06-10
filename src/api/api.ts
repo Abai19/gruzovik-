@@ -1,8 +1,7 @@
-import { ILog, IReg, IToken, addCarValues, addCargoValues } from "@src/types/types";
+import { ICarItem, ICargo, ICargoItem, ILog, IReg, IToken, IUserProfile, addCarValues, addCargoValues } from "@src/types/types";
 import { API } from "@src/variables/variables";
 import axios from "axios";
-import exp from "constants";
-import { toast } from "react-toastify";
+
 
 export async function Auth (info: ILog) {
     try {
@@ -87,28 +86,40 @@ export async function Regis(info : IReg ){
 
 export async function ProfileInfo(token: string){
   try {
-    const { data, status } = await axios.get<Promise<string>>(
+    const { data, status } = await axios.get<IUserProfile>(
       API.auth.profile,
       {
         headers: {
             "Content-Type ": "application/json",
             "AUTHORIZATION": `bearer ${token} `
-
-
         },
-
-
       }
     )
-    console.log('response status is: ', status);
     return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       return error
-    } else {
-      console.log('unexpected error: ', error);
-      return 'An unexpected error occurred';    
-    }
+    } 
+  }
+}
+
+export async function ProfileEdit(token: string | null, info :IUserProfile ){
+  try {
+    const { data } = await axios.patch<IUserProfile>(
+      API.auth.editProfile,
+      info,
+      {
+        headers: {
+            "Content-Type ": "application/json",
+            "AUTHORIZATION": `bearer ${token} `
+        },
+      }
+    )
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return error
+    } 
   }
 }
 
@@ -159,5 +170,81 @@ export async function postCar (token: string | null, info: addCarValues) {
       console.log('unexpected error: ', error);
       return 'An unexpected error occurred';    
     }
+  }
+}
+
+export async function UserCargos(token: string){
+  try {
+    const { data, status } = await axios.get<ICargoItem[]>(
+      API.cargo.userCargos,
+      {
+        headers: {
+            "Content-Type ": "application/json",
+            "AUTHORIZATION": `bearer ${token} `
+        },
+      }
+    )
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return error
+    } 
+  }
+}
+export async function UserCars(token: string){
+  try {
+    const { data, status } = await axios.get<ICarItem[]>(
+      API.cars.userCars,
+      {
+        headers: {
+            "Content-Type ": "application/json",
+            "AUTHORIZATION": `bearer ${token} `
+        },
+      }
+    )
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return error
+    } 
+  }
+}
+
+export async function DeleteItem(token: string, label: string, id: number){
+  try {
+    const { data } = await axios.delete(
+      label =="cargo" ? API.cargo.cargoById+id : API.cars.carById+id ,
+      {
+        headers: {
+            "Content-Type ": "application/json",
+            "AUTHORIZATION": `bearer ${token} `
+        },
+      }
+    )
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return error
+    } 
+  }
+}
+
+
+export async function UserCargosById(token: string, id: number){
+  try {
+    const { data, status } = await axios.get<ICargoItem>(
+      API.cargo.cargoById+id,
+      {
+        headers: {
+            "Content-Type ": "application/json",
+            "AUTHORIZATION": `bearer ${token} `
+        },
+      }
+    )
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return error
+    } 
   }
 }

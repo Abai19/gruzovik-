@@ -27,14 +27,14 @@ export default function Login() {
             const  response = await Auth(data);
             if(axios.isAxiosError(response)){
                 if(response.response){
-                    toast.error(response.response.data.message, {delay:1000})
+                    toast.error(response.response.data.message,{autoClose:1000})
                 }
                 else {
-                    toast.error(response.message, {delay:1000})
+                    toast.error(response.message,{autoClose:1000})
                 }
             }
             else {
-                toast.success('Добро пожаловать!', {delay:1000})
+                toast.success('Добро пожаловать!',{autoClose:1000})
                 login(response)
                 router.push('/')
             }

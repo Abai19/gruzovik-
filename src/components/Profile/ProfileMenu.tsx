@@ -74,19 +74,23 @@ export default function ProfileMenu() {
                     </div>
                 </MenuItem>
                 <MenuItem sx={{ backgroundColor: '#ffffff!important', '&:hover': { backgroundColor: 'rgba(65, 140, 187, 0.25)!important;' }, }} onClick={handleClose}>
-                    <div className={styles.menuItem} onClick={() => router.push('/login')}>
+                    <div className={styles.menuItem} onClick={() => router.push('/myCargos')}>
                     <div>  <Image src={cargoIcon} alt={'profile'} /></div>  
                         <p>Мои грузы</p>
                     </div>
                 </MenuItem>
                 <MenuItem sx={{ backgroundColor: '#ffffff!important', '&:hover': { backgroundColor: 'rgba(65, 140, 187, 0.25)!important;' }, }} onClick={handleClose}>
-                    <div className={styles.menuItem} onClick={() => router.push('/login')}>
+                    <div className={styles.menuItem} onClick={() => router.push('/myCars')}>
                     <div>   <Image src={carIcon} alt={'profile'} /></div>  
                         <p>Мой транспорт</p>
                     </div>
                 </MenuItem>
                 <MenuItem sx={{ backgroundColor: '#ffffff!important', '&:hover': { backgroundColor: 'rgba(65, 140, 187, 0.25)!important;' }, }} onClick={handleClose}>
-                    <div className={styles.menuItem} onClick={() => logout()}>
+                    <div className={styles.menuItem} onClick={() => {
+                        logout();
+                        router.push('/')
+                    }}
+                    >
                     <div>    <Image src={logoutIcon} alt={'profile'} /></div>  
                         <p>Выйти</p>
                     </div>

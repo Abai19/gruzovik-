@@ -1,0 +1,14 @@
+.title {
+    font-size: 18px;
+    text-align: center;
+    color: var(--blue);
+    margin: 1.5rem 0 0 0;
+}
+.main{
+    width: 90%;
+    margin:  0 auto;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}

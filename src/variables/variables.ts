@@ -17,8 +17,11 @@ export const  API = {
     cars: {
         create: "https://cargo-transportation.onrender.com/cars/create",
         list: "https://cargo-transportation.onrender.com/cars/getList",
-        userCargos: "https://cargo-transportation.onrender.com/cars/getUserCars",
+        userCars: "https://cargo-transportation.onrender.com/cars/getUserCars",
         carById: "https://cargo-transportation.onrender.com/cars/",
         editCar : "https://cargo-transportation.onrender.com/cars/edit/"
+    },
+    locations: {
+        get: "https://cargo-transportation.onrender.com/locations"
     }
 }

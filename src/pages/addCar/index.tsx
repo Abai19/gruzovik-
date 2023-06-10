@@ -12,6 +12,14 @@ import { addCarValues } from "@src/types/types";
 import { postCar } from "@src/api/api";
 import axios from "axios";
 import { toast } from "react-toastify";
+import AutoCompleteInput from "@components/AutoCompleteInput/AutoCompleteInput";
+
+interface Option {
+    countryName: string;
+    geonameId: number;
+    name: string; 
+}
+
 export default function AddCar () {
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState<addCarValues>({
@@ -61,14 +69,14 @@ export default function AddCar () {
             const  response = await  postCar(token ,data);
             if(axios.isAxiosError(response)){
                 if(response.response){
-                    toast.error(response.response.data.message, {delay:1000})
+                    toast.error(response.response.data.message,{autoClose:1000})
                 }
                 else {
-                    toast.error(response.message, {delay:1000})
+                    toast.error(response.message,{autoClose:1000})
                 }
             }
             else {
-                toast.success('Успешно создано!', {delay:1000})
+                toast.success('Успешно создано!',{autoClose:1000})
             }
           
         }
@@ -98,6 +106,13 @@ export default function AddCar () {
             }
         })
       }
+
+      const handleOptionSelect = (option: Option, key: string) => {
+        setData( {
+            ...data, 
+            [key] :  option
+        })
+    };
     return (
         <div>
             <p className={styles.title}>Заявка на размещение груза </p>
@@ -117,26 +132,15 @@ export default function AddCar () {
                         format="DD.MM.YYYY"
                     />
                 </LocalizationProvider >
-            <TextField
-                   value= {data.from}
-                   onChange={onChange}
-                   name= "from"
-                   placeholder="Откуда"
-                   fullWidth
-                   type="text"
-                   id="outlined-size-small"
-                   size="small"
+                <AutoCompleteInput 
+                    onOptionSelect={handleOptionSelect} 
+                    label="Откуда"
+                    keyProp="from"
                 />
-                     <TextField
-                    value= {data.to}
-                    onChange={onChange}
-                    name="to"
-                  // sx={{ width: "100%" }}
-                  placeholder="Куда"
-                  fullWidth
-                  type="text"
-                  id="outlined-size-small"
-                  size="small"
+                <AutoCompleteInput 
+                    onOptionSelect={handleOptionSelect} 
+                    label="Куда"
+                    keyProp="to"
                 />
                      <TextField
                     // sx={{ width: "100%" }}

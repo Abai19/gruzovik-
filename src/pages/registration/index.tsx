@@ -32,14 +32,14 @@ export default function Registration() {
             const response = await  Regis(data);
             if(axios.isAxiosError(response)){
                 if(response.response){
-                    toast.error(response.response.data.message, {delay:1000})
+                    toast.error(response.response.data.message,{autoClose:1000})
                 }
                 else {
-                    toast.error(response.message, {delay:1000})
+                    toast.error(response.message,{autoClose:1000})
                 }
             }
             else {
-                toast.success(response.message, {delay:1000})
+                toast.success(response.message,{autoClose:1000})
                 setApprove(true)
             }
         }
@@ -50,14 +50,14 @@ export default function Registration() {
             const response = await  AcceptReg(approveTitle);
             if(axios.isAxiosError(response)){
                 if(response.response){
-                    toast.error(response.response.data.message, {delay:1000})
+                    toast.error(response.response.data.message,{autoClose:1000})
                 }
                 else {
-                    toast.error(response.message, {delay:1000})
+                    toast.error(response.message,{autoClose:1000})
                 }
             }
             else {
-                toast.success(response.message, {delay:1000})
+                toast.success(response.message,{autoClose:1000})
                 setApprove(true)
                 router.push('/')
             }

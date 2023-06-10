@@ -23,7 +23,9 @@ export type addCargoValues = {
     to: string;
     weight: string;
     volume: string;
+    cars_quantity: number | null;
     transportType: string;
+    cargo_type : string;
     shipmentDate: Dayjs | null | string ;
     price: number | null;
     contacts : {
@@ -52,20 +54,29 @@ export type addCargoValues = {
   export interface ICargoItem {
     id: number,
     name: string,
-    from: string,
-    to: string,
+    from: {
+      cityName: string;
+      countryName: string;
+      geonameID: number;
+    },
+    to:  {
+      cityName: string;
+      countryName: string;
+      geonameID: number;
+    },
     weight: string,
     volume: string,
     transportType: string,
     shipmentDate: string,
     price: number,
+    cargo_type: string;
+    cars_quantity: number;
     authorId: number,
-    contacts: [
-      {
-        id: number,
-        contact: string
-      }
-    ],
+    contacts: {
+      phone:string,
+      telegram: string,
+      whatsapp: string,
+  }
     author: {
       name: string,
       surname: string,
@@ -86,20 +97,27 @@ export type addCargoValues = {
 export interface ICarItem {
     id: number,
     name: string,
-    from: string,
-    to: string,
+    from: {
+      cityName: string;
+      countryName: string;
+      geonameID: number;
+    },
+    to: {
+      cityName: string;
+      countryName: string;
+      geonameID: number;
+    },
     weight: string,
     volume: string,
     transportType: string,
     shipmentDate: string,
     price: number,
     authorId: number,
-    contacts: [
-      {
-        id: number,
-        contact: string
-      }
-    ],
+    contacts: {
+      phone:string,
+      telegram: string,
+      whatsapp: string,
+  },
     author: {
       name: string,
       surname: string,
@@ -111,3 +129,14 @@ export interface ICarItem {
     cars: ICarItem[],
     count:number
 }   
+
+export interface IUserProfile {
+  avatar: null;
+  email: string;
+  id: number;
+  name: string;
+  phone: string;
+  surname: string;
+  telegram: string;
+  whatsapp: string;
+}

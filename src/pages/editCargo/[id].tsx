@@ -1,176 +1,184 @@
-import { useAuth } from "@src/context/AuthContext"
-import { useRouter } from "next/router"
-import dayjs from 'dayjs';
-
-import { ReactSVG, useEffect, useState } from "react"
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
-import styles from './AddCargo.module.scss'
-import TextField from "@mui/material/TextField";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { MobileDatePicker } from '@mui/x-date-pickers'
-import { SubmitHandler, useForm } from "react-hook-form";
-import { addCargoValues } from "@src/types/types";
-import { postCargo } from "@src/api/api";
-import axios from "axios";
+import { useRouter } from "next/router";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useForm } from 'react-hook-form';
+import TextField from '@mui/material/TextField';
+import { ICargoItem } from "@src/types/types";
+import { UserCargosById } from "@src/api/api";
+import { useAuth } from "@src/context/AuthContext";
 import { toast } from "react-toastify";
+import { LocalizationProvider, MobileDatePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import styles from './EditCargo.module.scss'
 import AutoCompleteInput from "@components/AutoCompleteInput/AutoCompleteInput";
+import dayjs from 'dayjs';
 
 interface Option {
     countryName: string;
     geonameId: number;
     name: string; 
 }
-export default function AddCargo (){
-    const [data, setData] = useState<addCargoValues>({
+export default function EditCargo() {
+  const { handleSubmit, register, setValue } = useForm<ICargoItem>();
+  const [data, setData] = useState<ICargoItem>({
         contacts: {
-            phone: null,
+            phone: '',
             telegram: '',
             whatsapp: ''
         },
-        from : '',
+        from : {
+            cityName: '',
+            countryName: '',
+            geonameID: 0
+        },
         cargo_type: '',
-        cars_quantity: null,
+        cars_quantity: 0,
         name : '',
-        price : null,
-        shipmentDate: null,
-        to: '',
+        price : 0,
+        shipmentDate: '',
+        to: {
+            cityName: '',
+            countryName: '',
+            geonameID: 0
+        },
         transportType: '',
         volume: '',
-        weight: ''
-    })
-    const [isLoading, setIsLoading] = useState(true);
-    const router = useRouter();
-    const {token} = useAuth();
-    useEffect(()=> {
-        if(!token) {
-            router.push('/login')
-        }
-        else {
-            setIsLoading(false);
-        }
-    },[router,token])
-    if (isLoading) {
-        return       <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", height: "70vh" } }>
-                        <CircularProgress />
-                    </Box>
-      }
-      const datePickerStyles = {
-        width: "100%",
-        '& .MuiInputBase-input': {
-          padding: '8.5px 14px;',
+        weight: '',
+        id: 0,
+        author: {
+            email: "",
+            name: '',
+            phone: '',
+            surname: ''
         },
-        '& label' : {
-            left: "-1px",
-            top: "-7px",
-            color: "#999"
-        }
-      };
-    async function onSubmit (event : React.FormEvent<HTMLFormElement>) {
-        event.preventDefault()
-        try {
-            const  response = await  postCargo(token ,data);
-            if(axios.isAxiosError(response)){
-                if(response.response){
-                    toast.error(response.response.data.message,{autoClose:1000})
-                }
-                else {
-                    toast.error(response.message,{autoClose:1000})
-                }
-            }
-            else {
-                toast.success('Успешно создано!',{autoClose:1000})
-            }
-          
-        }
-        catch{
+        authorId: 0,
+  });
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+  const { query } = router;
+  const id = query?.id; // Check if query exists before accessing its properties
+  const { token } = useAuth();
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!token || !id) { // Check if token and id exist
+        return;
+      }
+      try {
+        const response = await UserCargosById(token, 2);
+        if (axios.isAxiosError(response)) {
+          if (response.response) {
+            toast.error(response.response.data.message, { autoClose: 1000 });
+          } else {
+            toast.error(response.message, { autoClose: 1000 });
+          }
+        } else {
+          setData(response!);
+        //   setValue('')
+          //setValue('from', response?.from);
         }
-      };
-      const onChange=(event : React.ChangeEvent<HTMLInputElement>)=> {
-        setData( {
-            ...data, 
-            [event.target.name] : event.target.value
-        })
+        setIsLoading(false);
+      } catch (error) {
+        // Handle error
+        setIsLoading(false);
       }
-      const onChangeWithNumber=(event : React.ChangeEvent<HTMLInputElement>)=> {
-        setData( {
-            ...data, 
-            [event.target.name] : Number(event.target.value)
-        })
-      }
-      const changeContacts = (event : React.ChangeEvent<HTMLInputElement>)=> {
-        setData( {
-            ...data, 
-            contacts : {
-                ...data.contacts,
-                [event.target.name] : event.target.value
-            }
-        })
-      }
-      const handleOptionSelect = (option: Option, key: string) => {
-        console.log('Selected option:', option);
-        console.log(key);
-        setData( {
-            ...data, 
-            [key] :  option
-        })
     };
-    
-    return (
-        <div>
+
+    fetchData();
+  }, [setValue, token, id]);
+
+//   const onSubmit = async (formData: ICargoItem) => {
+//     try {
+//       const response = await axios.post('your-api-endpoint', formData);
+//       // Handle the response as needed
+//     } catch (error) {
+//       // Handle any errors
+//     }
+//   };
+const onSubmit = (event : React.FormEvent<HTMLFormElement>)=>{
+    event.preventDefault()
+}
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  const datePickerStyles = {
+    width: "100%",
+    '& .MuiInputBase-input': {
+      padding: '8.5px 14px;',
+    },
+    '& label' : {
+        left: "-1px",
+        top: "-7px",
+        color: "#999"
+    }
+  };
+
+  const onChange=(event : React.ChangeEvent<HTMLInputElement>)=> {
+    // setData( {
+    //     ...data, 
+    //     [event.target.name] : event.target.value
+    // })
+  }
+  const onChangeWithNumber=(event : React.ChangeEvent<HTMLInputElement>)=> {
+    // setData( {
+    //     ...data, 
+    //     [event.target.name] : Number(event.target.value)
+    // })
+  }
+  const changeContacts = (event : React.ChangeEvent<HTMLInputElement>)=> {
+    // setData( {
+    //     ...data, 
+    //     contacts : {
+    //         ...data.contacts,
+    //         [event.target.name] : event.target.value
+    //     }
+    // })
+  }
+  const handleOptionSelect = (option: Option, key: string) => {
+    // console.log('Selected option:', option);
+    // console.log(key);
+    // setData( {
+    //     ...data, 
+    //     [key] :  option
+    // })
+};
+  return (
+    <div>
         <p className={styles.title}>Заявка на размещение груза </p>
         <form className={styles.main} onSubmit={onSubmit}>
-            <LocalizationProvider dateAdapter={AdapterDayjs} locale="ru" >
+            {/* <LocalizationProvider dateAdapter={AdapterDayjs} locale="ru" >
             
                 <MobileDatePicker  
                     // slots={() => <TextField placeholder="Выберите дату"/>}
                     label="Дата погрузки"
                     value={data.shipmentDate}
-                     onChange={(newValue)=> setData({...data,shipmentDate : 
-                        //  newValue !==null && typeof newValue !=="string"  ? 
-                        //  newValue.format("DD.MM.YYYY")  : null
-                        newValue
-                    })}
+                    // onChange={(newValue)=> setData({...data,shipmentDate : 
+                    //     //  newValue !==null && typeof newValue !=="string"  ? 
+                    //     //  newValue.format("DD.MM.YYYY")  : null
+                    //     newValue
+                    // })}
                      sx={datePickerStyles}
                      closeOnSelect ={true}
                      format="DD.MM.YYYY"
                 />
-            </LocalizationProvider >
-            {/* <TextField
-                // sx={{ width: "100%" }}
-                value= {data.from}
-                onChange={onChange}
-                name= "from"
-                placeholder="Откуда"
-                fullWidth
-                type="text"
-                id="outlined-size-small"
-                size="small"
-            /> */}      
+            </LocalizationProvider>  */}
                 <AutoCompleteInput 
                     onOptionSelect={handleOptionSelect} 
                     label="Откуда"
                     keyProp="from"
+                    countryName={data.from.countryName}
+                    geonameId={data.from.geonameID}
+                    name={data.from.cityName}
                 />
                 <AutoCompleteInput 
                     onOptionSelect={handleOptionSelect} 
                     label="Куда"
                     keyProp="to"
+                    countryName={data.to.countryName}
+                    geonameId={data.to.geonameID}
+                    name={data.to.cityName}
                 />
-
-                 {/* <TextField
-                  value= {data.to}
-                  onChange={onChange}
-                  name="to"
-                // sx={{ width: "100%" }}
-                placeholder="Куда"
-                fullWidth
-                type="text"
-                id="outlined-size-small"
-                size="small"
-            /> */}
     
                  <TextField
                   value= {data.volume}
@@ -243,6 +251,7 @@ export default function AddCargo (){
             
                   <TextField
                   onChange={changeContacts}
+                  value= {data.contacts.phone}
                 // sx={{ width: "100%" }}
                 placeholder="Телефон"
                 name="phone"
@@ -252,6 +261,7 @@ export default function AddCargo (){
                 size="small"
             />
                     <TextField
+                     value= {data.contacts.whatsapp}
                      onChange={changeContacts}
                 // sx={{ width: "100%" }}
                 placeholder="Whatsapp"
@@ -262,6 +272,7 @@ export default function AddCargo (){
                 size="small"
             />
                         <TextField
+                          value= {data.contacts.telegram}
                          onChange={changeContacts}
                 // sx={{ width: "100%" }}
                 name="telegram"
@@ -274,5 +285,5 @@ export default function AddCargo (){
             <button className="btnBlue">Разместить</button>
         </form>
     </div>
-    )
+  );
 }
