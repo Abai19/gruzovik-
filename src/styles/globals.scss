@@ -47,6 +47,30 @@ a {
     width: 100%;
   }
 }
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  list-style: none;
+}
+
+.pagination a {
+  padding: 6px 12px;
+  margin: 0 2px;
+  border: 1px solid #ddd;
+  color: #555;
+  cursor: pointer;
+}
+
+.pagination a:hover {
+  background-color: #eee;
+}
+
+.pagination .active a {
+  background-color: var(--blue);
+  color: #fff;
+  border-color: var(--blue);
+}
 .btnBlack {
   background-color: var(--black);
   border-radius: 6px;
