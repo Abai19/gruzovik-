@@ -248,3 +248,22 @@ export async function UserCargosById(token: string, id: number){
     } 
   }
 }
+
+export async function UserCarsById(token: string, id: number){
+  try {
+    const { data, status } = await axios.get<ICargoItem>(
+      API.cars.carById+id,
+      {
+        headers: {
+            "Content-Type ": "application/json",
+            "AUTHORIZATION": `bearer ${token} `
+        },
+      }
+    )
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return error
+    } 
+  }
+}

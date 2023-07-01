@@ -86,7 +86,7 @@ export default function CarItem ({car,isEditable, fetchData}: IProps) {
                                 isEditable && 
                                 <div className={styles.editBlock}>
                                     <Image alt='edit' src={PencilIcon}
-                                        onClick={()=> push(`editCargo/${car.id}`)}
+                                        onClick={()=> push(`editCar/${car.id}`)}
                                     />
                                     <Image alt='delete' src={trashIcon}
                                         onClick={()=> setOpenDelete(true)}

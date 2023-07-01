@@ -58,7 +58,10 @@ const DeleteComponent = ({ open, setOpen, id, label, fetchData }: IProps) => {
                 aria-labelledby="responsive-dialog-title"
             >
                 <DialogTitle id="responsive-dialog-title">
-                    {"Вы уверены что хотите удалить?"}
+                    Вы уверены что хотите удалить 
+                    {
+                        label === 'car' ? ' траснпорт' : ' груз'
+                    }?
                 </DialogTitle>
                 <DialogActions>
                     <Button variant='contained' autoFocus onClick={onSubmit}>

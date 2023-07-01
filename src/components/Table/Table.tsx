@@ -138,6 +138,27 @@ const Table: React.FC<CargoTableProps> = ({ cars, cargos, page, isEditable, fetc
                                         onClick={() => getContacts(car.contacts)}
                                     />
                                 </StyledTableCellBody>
+                                {
+                                    isEditable &&
+                                    <StyledTableCellBody>
+                                        <Image alt='edit' src={PencilIcon} style={{ cursor: 'pointer' }}
+                                            onClick={() => push(`editCar/${car.id}`)}
+                                        />
+                                        <Image alt='delete' src={TrashIcon} style={{ cursor: 'pointer' }}
+                                            onClick={() => setOpenDelete(true)}
+                                        />
+                                    </StyledTableCellBody>
+                                }
+                                {
+                                    openDelete &&
+                                    <DeleteComponent
+                                        id={car.id}
+                                        label="car"
+                                        open={openDelete}
+                                        setOpen={setOpenDelete}
+                                        fetchData={fetchData}
+                                    />
+                                }
                             </TableRow>
                         ))}
                     </TableBody>
