@@ -17,6 +17,11 @@ export interface IReg {
     telegram: string,
     whatsapp: string
 }
+export interface IContacts {
+    phone: number | null,
+    telegram: string,
+    whatsapp: string
+}
 export type addCargoValues = {
     name: string;
     from: string;
@@ -28,11 +33,7 @@ export type addCargoValues = {
     cargo_type : string;
     shipmentDate: Dayjs | null | string ;
     price: number | null;
-    contacts : {
-        phone: number | null,
-        telegram: string,
-        whatsapp: string
-    }
+    contacts :IContacts;
   };
 
   export type addCarValues = {
@@ -44,11 +45,7 @@ export type addCargoValues = {
     transportType: string;
     shipmentDate: Dayjs | null | string ;
     price: number | null;
-    contacts : {
-        phone: number | null,
-        telegram: string,
-        whatsapp: string
-    }
+    contacts : IContacts;
   };
 
   export interface ICargoItem {
@@ -72,11 +69,7 @@ export type addCargoValues = {
     cargo_type: string;
     cars_quantity: number;
     authorId: number,
-    contacts: {
-      phone:string,
-      telegram: string,
-      whatsapp: string,
-  }
+    contacts: IContacts,
     author: {
       name: string,
       surname: string,
@@ -113,11 +106,7 @@ export interface ICarItem {
     shipmentDate: string,
     price: number,
     authorId: number,
-    contacts: {
-      phone:string,
-      telegram: string,
-      whatsapp: string,
-  },
+    contacts: IContacts,
     author: {
       name: string,
       surname: string,

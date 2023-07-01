@@ -22,7 +22,7 @@ export default function EditCargo() {
   const { handleSubmit, register, setValue } = useForm<ICargoItem>();
   const [data, setData] = useState<ICargoItem>({
         contacts: {
-            phone: '',
+            phone: 0,
             telegram: '',
             whatsapp: ''
         },

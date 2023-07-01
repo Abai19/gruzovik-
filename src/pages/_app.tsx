@@ -8,22 +8,29 @@ import { toast, ToastContainer } from 'react-toastify'
 import Navigation from '@components/Navigation/Navigation';
 import Footer from '@components/Footer/Footer';
 import '../styles/globals.scss';
-const montserrat = Montserrat({ subsets: ['latin'], style: "normal", variable: "--montserrat", weight: "600" })
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+const montserrat = Montserrat({ subsets: ['latin'], style: "normal", variable: "--montserrat", weight: "500" })
 export default function App({ Component, pageProps,router }: AppProps) {
   const excludeLayoutRoutes = ["/", "/cars"];
   const excludeLayoutRoutesFooter = ["/profile", "/myCargos", "/myCars"]
+  const theme = createTheme({
+    typography: {
+      fontFamily: montserrat.style.fontFamily,
+    },
+  });
   return (
     <AuthProvider>
       <ToastContainer/>
-      <style jsx global>
+      {/* <style jsx global>
         {`
           html,
           body {
-            font-family: ${montserrat.style}!important;
+            font-family: ${montserrat.style.fontFamily}!important;
           }
         `}
-      </style>
+      </style> */}
       <main className={montserrat.className}>
+      <ThemeProvider theme={theme}>
         <Header />
           {excludeLayoutRoutes.includes(router.route) && (
             <Navigation/>
@@ -35,8 +42,9 @@ export default function App({ Component, pageProps,router }: AppProps) {
            {excludeLayoutRoutesFooter.includes(router.route) && (
              <Footer/>
           )} */}
-       
+        </ThemeProvider>
       </main>
+      
     </AuthProvider>
 
   )

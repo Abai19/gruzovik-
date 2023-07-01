@@ -7,7 +7,7 @@ import 'dayjs/locale/ru';
 import styles from './CarItem.module.scss'
 import startIcon from '@assets/from.svg'
 import endIcon from '@assets/to.svg'
-import { ICarItem } from '@src/types/types';
+import { ICarItem, IContacts } from '@src/types/types';
 import { Button } from '@mui/material';
 import { formatDateString } from '@src/helpers/helpers';
 import DeleteComponent from '@components/DeleteComponent/DeleteComponent';
@@ -27,10 +27,10 @@ export default function CarItem ({car,isEditable, fetchData}: IProps) {
     dayjs.locale('ru');
     const [openDelete, setOpenDelete] = useState(false);
     const [open, setOpen] = useState(false);
-    const [contactData, setContactData]= useState<Pick<ICarItem,'contacts'> | null>(null)
+    const [contactData, setContactData]= useState<IContacts | null>(null)
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const getContacts =(contacts: Pick<ICarItem,'contacts'>)=> {
+    const getContacts =(contacts: IContacts)=> {
 
       console.log(contacts)
       setContactData(contacts)
@@ -80,7 +80,7 @@ export default function CarItem ({car,isEditable, fetchData}: IProps) {
                             </div>
                             <div className={cn(styles.title, styles.cargoInfo)}>
                                 <div>{car.to.countryName}, {car.to.cityName}</div> 
-                                <Button className={styles.btnContact} onClick={()=> getContacts({contacts: car.contacts})}>Контакты</Button >
+                                <Button className={styles.btnContact} onClick={()=> getContacts(car.contacts)}>Контакты</Button >
                             </div>
                             {
                                 isEditable && 

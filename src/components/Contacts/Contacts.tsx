@@ -8,7 +8,7 @@ import { ReactSVG, useEffect, useState } from "react"
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { ICargoItem } from '@src/types/types';
+import { ICargoItem, IContacts } from '@src/types/types';
 import PhoneIcon from '@assets/phone.svg'
 import WhatsappIcon from '@assets/whatsapp.svg'
 import TelegramIcon from '@assets/telegram.svg'
@@ -30,7 +30,7 @@ const style = {
 
   interface IProps {
     open: boolean,
-    contactData: Pick<ICargoItem,'contacts'>,
+    contactData: IContacts,
     handleClose: ()=> void,
   }
 const Contacts = ({open, handleClose,contactData}: IProps)=> {
@@ -63,7 +63,7 @@ const Contacts = ({open, handleClose,contactData}: IProps)=> {
         Контакные данные
       </Typography>
       {
-        contactData.contacts.phone && (
+        contactData.phone && (
             <Stack
             direction="row"
             justifyContent="center"
@@ -71,13 +71,13 @@ const Contacts = ({open, handleClose,contactData}: IProps)=> {
             >       
                  <Image src={PhoneIcon} className={styles.icon} alt='phone'/>
                  <Typography id="modal-modal-title" variant="h6" component="p">
-                 <Link href={`tel:${contactData.contacts.phone}`}>{contactData.contacts.phone}</Link>
+                 <Link href={`tel:${contactData.phone}`}>{contactData.phone}</Link>
                 </Typography>
             </Stack>
         )
       }
        {
-        contactData.contacts.whatsapp && (
+        contactData.whatsapp && (
             <Stack
             direction="row"
             justifyContent="center"
@@ -85,13 +85,13 @@ const Contacts = ({open, handleClose,contactData}: IProps)=> {
             >       
                  <Image src={WhatsappIcon} className={styles.icon} alt='whats'/>
                  <Typography id="modal-modal-title" variant="h6" component="p">
-                    {contactData.contacts.whatsapp}
+                    {contactData.whatsapp}
                 </Typography>
             </Stack>
         )
       }
        {
-        contactData.contacts.telegram && (
+        contactData.telegram && (
             <Stack
             direction="row"
             justifyContent="center"
@@ -100,7 +100,7 @@ const Contacts = ({open, handleClose,contactData}: IProps)=> {
             >       
                  <Image src={TelegramIcon} className={styles.icon} alt='whats'/>
                  <Typography id="modal-modal-title" variant="h6" component="p">
-                        {contactData.contacts.telegram}
+                        {contactData.telegram}
                 </Typography>
             </Stack>
         )
