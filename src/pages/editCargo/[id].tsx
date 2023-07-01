@@ -72,8 +72,8 @@ export default function EditCargo() {
           } else {
             toast.error(response.message, { autoClose: 1000 });
           }
-        } else {
-          setData(response!);
+        } else if(response) {
+          setData(response);
         //   setValue('')
           //setValue('from', response?.from);
         }

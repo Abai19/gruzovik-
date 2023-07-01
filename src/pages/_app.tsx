@@ -29,12 +29,12 @@ export default function App({ Component, pageProps,router }: AppProps) {
             <Navigation/>
           )}
           <Component {...pageProps} />
-          {excludeLayoutRoutes.includes(router.route) && (
+          {/* {excludeLayoutRoutes.includes(router.route) && (
              <Footer/>
           )}
            {excludeLayoutRoutesFooter.includes(router.route) && (
              <Footer/>
-          )}
+          )} */}
        
       </main>
     </AuthProvider>
