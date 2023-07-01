@@ -146,7 +146,7 @@ export default function EditCargo() {
     };
     return (
         <div>
-            <p className={styles.title}>Заявка на размещение груза </p>
+            <p className={styles.title}>Редактирование груза </p>
             <form className={styles.main} onSubmit={onSubmit}>
                 {/* <LocalizationProvider dateAdapter={AdapterDayjs} locale="ru" >
             

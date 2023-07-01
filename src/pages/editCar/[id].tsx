@@ -147,7 +147,7 @@ const onSubmit = (event : React.FormEvent<HTMLFormElement>)=>{
 };
   return (
     <div>
-        <p className={styles.title}>Заявка на размещение груза </p>
+        <p className={styles.title}>Редактирование транспорта </p>
         <form className={styles.main} onSubmit={onSubmit}>
             {/* <LocalizationProvider dateAdapter={AdapterDayjs} locale="ru" >
             
